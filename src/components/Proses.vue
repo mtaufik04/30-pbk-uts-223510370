@@ -32,8 +32,8 @@
             <td>{{ task.completed ? 'Selesai' : 'Belum Selesai' }}</td>
             <td>
               <button @click="toggleTaskCompletion(task)" class="action-btn" title="Selesai">
-                <i v-if="!task.completed" class="fas fa-check">selesai</i>
-                <i v-else class="fas fa-times"> batal</i>
+                <i v-if="!task.completed" class="fas fa-check">selesaikan</i>
+                <i v-else class="fas fa-times"> batalkan</i>
               </button>
               <button @click="removeTask(task)" class="action-btn" title="Hapus">
                 <i class="fas fa-trash-alt">hapus</i>
@@ -49,45 +49,60 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 const newTask = ref('');
-const tasks = ref([]);
-const showCompleted = ref(false);
-let taskCounter = ref(1); 
+const tasks = ref(JSON.parse(localStorage.getItem('tasks')) || []);
+const showCompleted = ref(JSON.parse(localStorage.getItem('showCompleted')) || false);
+let taskCounter = ref(tasks.value.length + 1);
+
+const saveTasksToLocalStorage = () => {
+  localStorage.setItem('tasks', JSON.stringify(tasks.value));
+};
+
+const saveShowCompletedToLocalStorage = () => {
+  localStorage.setItem('showCompleted', JSON.stringify(showCompleted.value));
+};
 
 const addTask = () => {
   const trimmedTask = newTask.value.trim();
   if (trimmedTask !== '' && !tasks.value.find(task => task.name === trimmedTask)) {
     tasks.value.push({ name: trimmedTask, completed: false });
     newTask.value = '';
-    taskCounter.value++; 
+    taskCounter.value++;
+    saveTasksToLocalStorage(); 
   }
 };
 
 const removeTask = (task) => {
   const index = tasks.value.findIndex(t => t.name === task.name);
   tasks.value.splice(index, 1);
+  saveTasksToLocalStorage(); 
 };
 
 const toggleTaskCompletion = (task) => {
   task.completed = !task.completed;
+  saveTasksToLocalStorage(); 
 };
 
 const toggleShowCompleted = () => {
-  showCompleted.value = !showCompleted.value; 
+  showCompleted.value = !showCompleted.value;
+  saveShowCompletedToLocalStorage(); 
 };
 
 const filteredTasks = computed(() => {
   if (showCompleted.value) {
-    return tasks.value.filter(task => !task.completed); 
+    return tasks.value.filter(task => !task.completed);
   } else {
     return tasks.value;
   }
 });
 
+onMounted(() => {
+  saveTasksToLocalStorage();
+  saveShowCompletedToLocalStorage();
+});
 </script>
 
 <style scoped>
@@ -200,10 +215,16 @@ h1 {
 
 .action-btn {
   background-color: transparent;
-  color:#ddd;
+  color: #ddd;
   border: none;
   cursor: pointer;
+  transition: color 0.3s; 
 }
+
+.action-btn:hover {
+  color: #761a1a;
+}
+
 .no-tasks {
   text-align: center;
   font-style: italic;
@@ -211,6 +232,10 @@ h1 {
 .completed-task .task-name {
   text-decoration: line-through;
   color: #888;
+}
+
+.task-table th:nth-child(4) {
+  text-align: center; 
 }
 
 </style>
