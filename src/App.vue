@@ -7,7 +7,6 @@
 
 <script setup>
 import Proses from './components/Proses.vue'
-import Footer from './components/Footer.vue'
 
 </script>
 
