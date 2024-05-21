@@ -2,6 +2,14 @@
   background-color: #121213;
   color: rgba(255, 255, 255, 0.87); 
 }
+h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  color: #6c5ce7; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 
 .centered-container {
   display: flex;
@@ -10,12 +18,81 @@
   height: 100vh;
 }
 
+.todos-btn,
+.posts-btn,
+.back-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  position: absolute;
+  top: 20px;
+}
+
+.todos-btn {
+  left: 370px;
+  border: 2px solid #954a03;
+}
+
+.posts-btn {
+  left: 500px;
+  border: 2px solid #4caf50;
+}
+
+.back-btn {
+  left: 600px;
+  border: 2px solid #eb0a0a;
+}
+
+.todos-btn:hover,
+.posts-btn:hover,
+.back-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.todos-btn:hover {
+  color: #ffd166;
+  border-color: #ffd166;
+}
+
+.posts-btn:hover {
+  color: #81c784;
+  border-color: #81c784;
+}
+
+.back-btn:hover {
+  color: #ef5350;
+  border-color: #ef5350;
+}
+
 .bordered-container {
   border: 5px solid #1a73e8; 
   border-radius: 10px;
   padding: 20px;
   animation: border-color-animation 3s infinite alternate; 
 }
+.clear-all-btn {
+  margin-right: 10px; 
+  padding: 10px 20px;
+  border: 2px solid #fdc84d;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.clear-all-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color:  #fdc84d;
+  border-color: #fdc84d;
+}
+
+
 
 @keyframes border-color-animation {
   0% {
@@ -28,6 +105,7 @@
     border-color: #1a73e8;
   }
 }
+
 #app {
   background-image: url('./assets/g1.jpg');
   background-size: cover; 
@@ -38,9 +116,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-position: fixed;
 }
-
-
 
 .logo {
   font-size: 24px;
@@ -258,52 +335,4 @@ h1 {
 .no-posts {
   text-align: center;
   font-style: italic;
-}
-
-.todos-btn {
-  padding: 10px 20px;
-  margin-right: 10px; /* Menambahkan margin kanan */
-  border: 2px solid #1a73e8;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #1a73e8;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.posts-btn {
-  padding: 10px 20px;
-  border: 2px solid #4caf50;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #4caf50;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.todos-btn:hover {
-  background-color: #1a73e8;
-  color: white;
-}
-
-.posts-btn:hover {
-  background-color: #4caf50;
-  color: white;
-}
-.back-btn {
-  margin-right: 10px; /* Menambahkan margin kanan */
-  padding: 10px 20px;
-  border: 2px solid #eb0a0a;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #eb0a0a;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-.back-btn:hover {
-  background-color: #eb0a0a;
-  color: white;
 }
