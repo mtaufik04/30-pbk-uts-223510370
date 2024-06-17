@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Todos from '../components/Todos.vue';
-import Home from '../components/Home.vue'
+import Home from '../components/Home.vue';
 import Post from '../components/Post.vue';
 import Album from '../components/Album.vue';
 import AlbumPhotos from '../components/AlbumPhotos.vue';
+import Contact from '../components/Contact.vue'; 
 
 const routes = [
   { path: '/', redirect: '/Home' },
@@ -11,7 +12,8 @@ const routes = [
   { path: '/todos', component: Todos },
   { path: '/posts', component: Post },
   { path: '/albums', component: Album },
-  { path: '/albums/:id', component: AlbumPhotos, props: true }
+  { path: '/albums/:id', component: AlbumPhotos, props: true },
+  { path: '/contact', component: Contact }
 ];
 
 const router = createRouter({

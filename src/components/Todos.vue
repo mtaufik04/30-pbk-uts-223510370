@@ -46,72 +46,48 @@
     </slot>
   </div>
 </template>
-
+<!--didalam Todos.vue inilah terdapat penerapan pinia sebagai state management dimana tugas akan dikelola oleh store Pinia dan komponen Vue Anda akan menggunakan store ini untuk mengakses dan mengubah state.-->
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useTodoStore } from '../stores/todoStore';
 
+const todoStore = useTodoStore();
 
-const newTask = ref('');
-const tasks = ref([]);
-const showCompleted = ref(false);
+const newTask = computed({
+  get: () => todoStore.newTask,
+  set: (value) => todoStore.newTask = value
+});
 
-const loadTasks = () => {
-  const storedTasks = localStorage.getItem('tasks');
-  if (storedTasks) {
-    tasks.value = JSON.parse(storedTasks);
-  }
-};
-
-const saveTasks = () => {
-  localStorage.setItem('tasks', JSON.stringify(tasks.value));
-};
+const tasks = computed(() => todoStore.tasks);
+const showCompleted = computed(() => todoStore.showCompleted);
+const filteredTasks = computed(() => todoStore.filteredTasks);
 
 const addTask = () => {
-  const trimmedTask = newTask.value.trim();
-  if (trimmedTask !== '' && !tasks.value.find(task => task.name === trimmedTask)) {
-    tasks.value.push({ name: trimmedTask, completed: false });
-    newTask.value = '';
-    saveTasks();
-  }
+  todoStore.addTask();
 };
 
 const removeTask = (task) => {
-  const index = tasks.value.findIndex(t => t.name === task.name);
-  tasks.value.splice(index, 1);
-  saveTasks();
+  todoStore.removeTask(task);
 };
 
 const toggleTaskCompletion = (task) => {
-  task.completed = !task.completed;
-  saveTasks();
+  todoStore.toggleTaskCompletion(task);
 };
 
 const toggleShowCompleted = () => {
-  showCompleted.value = !showCompleted.value;
+  todoStore.toggleShowCompleted();
 };
 
-const filteredTasks = computed(() => {
-  if (showCompleted.value) {
-    return tasks.value.filter(task => !task.completed);
-  } else {
-    return tasks.value;
-  }
-});
-
 const clearAllTasks = () => {
-  const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus semua tugas?");
-  if (confirmDelete) {
-    tasks.value = [];
-    saveTasks();
-  }
+  todoStore.clearAllTasks();
 };
 
 onMounted(() => {
-  loadTasks();
+  todoStore.loadTasks();
+  console.log('Tasks after load:', todoStore.tasks);
 });
-
-watch(tasks, saveTasks, { deep: true });
 </script>
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 

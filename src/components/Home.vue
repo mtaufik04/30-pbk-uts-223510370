@@ -9,17 +9,17 @@
       </p>
     </div>
     <div class="features-container">
-      <div class="feature-card">
+      <div class="feature-card" @click="navigateTo('/todos')">
         <q-icon name="check_circle" class="feature-icon" />
         <h3>Todo List</h3>
         <p>Atur kegiatan Anda sehari-hari dengan mudah.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card" @click="navigateTo('/posts')">
         <q-icon name="forum" class="feature-icon" />
         <h3>Post</h3>
         <p>Lihat dan buat postingan menarik dari berbagai pengguna.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card" @click="navigateTo('/albums')">
         <q-icon name="photo_album" class="feature-icon" />
         <h3>Album</h3>
         <p>Lihat album foto dari berbagai pengguna.</p>
@@ -30,7 +30,15 @@
 
 <script setup>
 import { QIcon } from 'quasar'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const navigateTo = (path) => {
+  router.push(path)
+}
 </script>
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
@@ -52,7 +60,7 @@ import { QIcon } from 'quasar'
 .welcome-text h2 {
   font-style:forte;
   font-size: 36px;
-  background: linear-gradient(to right, #76c2c2 0%, #803ad5 100%);
+  background: linear-gradient(to right, #76531c 0%, #ec9c09 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
@@ -79,7 +87,8 @@ import { QIcon } from 'quasar'
   width: 250px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
-  margin-top: -70px;
+  cursor: pointer;
+  margin-top: -50px;
 }
 
 .feature-card:hover {

@@ -4,10 +4,11 @@
       <div class="marquee">
         <div class="marquee-border"></div>
         <div v-if="selectedUser === ''" class="marquee-text">
-          <span class="marquee-label">Pemberitahuan:</span> <span class="marquee-content">Silahkan pilih salah satu user yang ingin dilihat postingan</span>
+          <span class="marquee-label">Pemberitahuan:</span>
+          <span class="marquee-content">Silahkan pilih salah satu user yang ingin dilihat postingan</span>
         </div>
         <div v-else class="marquee-text">
-          <span class="marquee-label">user:</span> <span class="marquee-content">Saat ini Anda memilih user "{{ selectedUserName }}"</span>
+          <span class="marquee-content">Saat ini Anda memilih user "{{ selectedUserName }}"</span>
         </div>
       </div>
     </div>
@@ -42,6 +43,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
@@ -73,7 +75,7 @@ const updateSelectedUserName = () => {
     loading.value = true
     setTimeout(() => {
       loading.value = false
-    }, 1500) 
+    }, 1500)
   }
 }
 
@@ -87,7 +89,7 @@ watch(selectedUser, () => {
     loading.value = true
     setTimeout(() => {
       loading.value = false
-    }, 1500) 
+    }, 1500)
   }
 })
 </script>
@@ -97,6 +99,12 @@ watch(selectedUser, () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0f0f5, #c0c0cf);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .marquee-wrapper {
@@ -137,7 +145,7 @@ watch(selectedUser, () => {
     transform: translateX(100%);
   }
   100% {
-    transform: translateX(calc(-100% + 20px)); 
+    transform: translateX(calc(-100% + 20px));
   }
 }
 
@@ -152,7 +160,8 @@ watch(selectedUser, () => {
 }
 
 .select-input {
-  width: 500px; 
+  width: 100%;
+  max-width: 500px;
   padding: 10px;
   border: 2px solid #4CAF50;
   border-radius: 10px;
@@ -171,31 +180,41 @@ watch(selectedUser, () => {
 .post-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .post-table th,
 .post-table td {
   border: 1px solid #ddd;
-  padding: 8px;
-  color:white;
+  padding: 12px;
+  color: #333;
 }
 
 .post-table th {
-  background-color: #100f0f;
-  text-align: left;
+  background-color: #4CAF50;
   color: white;
+  text-align: left;
+}
+
+.post-table tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
 .no-posts {
   font-size: 16px;
   color: #6b7280;
   margin-top: 10px;
+  text-align: center;
 }
 
 .posted-by {
-  font-size: 20px;
+  font-size: 24px;
   margin-top: 20px;
   color: #1a73e8;
+  text-align: center;
 }
 
 .loading {
@@ -203,12 +222,14 @@ watch(selectedUser, () => {
   color: #1a73e8;
   margin-top: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to  {
+
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>
